@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fake Information Generator</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      .card {
+        margin: 50px auto;
+        border: 10px solid white;
+        border-radius: 15px;
+      }
+      body {
+        background-color: rgb(41, 40, 40);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card text-center" style="width: 18rem">
+      <img id="pic" src="" class="card-img-top" alt="" />
+      <div class="card-body">
+        <h5 class="card-title">Fake name Generator</h5>
+        <p class="card-text"><span>Age: </span> <span id="age"></span></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item text-success">
+          <span class="text-success">Name: </span> <span id="title"></span>
+          <span id="firstName"></span>
+          <span id="lastname"></span>
+        </li>
+        <li class="text-success list-group-item">
+          <span>Email: </span> <span id="email"></span>
+        </li>
+        <li class="list-group-item text-success">
+          <span>Cellphone: </span> <span id="cellphone"></span>
+        </li>
+
+        <li class="list-group-item text-success">
+          <span>User name: </span> <span id="username"></span>
+        </li>
+        <li class="list-group-item text-success">
+          <span>Password: </span> <span id="password"></span>
+        </li>
+        <li class="list-group-item text-success">
+          <span>City: </span> <span id="city"></span>
+        </li>
+        <li class="list-group-item text-success">
+          <span>Post Code: </span> <span id="postCode"></span>
+        </li>
+        <li class="list-group-item text-success">
+          <span>Country: </span> <span id="country"></span>
+        </li>
+      </ul>
+      <div class="card-body">
+        <a id="link" class="btn btn-success">Generate</a>
+      </div>
+    </div>
+
+    <script>
+      fetch("https://randomuser.me/api")
+        .then((response) => response.json())
+        .then((data) => {
+          const obJect = data.results[0];
+          console.log(obJect);
+          document.getElementById("title").innerText = obJect.name.title;
+          document.getElementById("firstName").innerText = obJect.name.first;
+          document.getElementById("lastname").innerText = obJect.name.last;
+          document.getElementById("email").innerText = obJect.email;
+          document
+            .getElementById("pic")
+            .setAttribute("src", obJect.picture.large);
+          document.getElementById("cellphone").innerText = obJect.cell;
+          document.getElementById("age").innerText = obJect.dob.age;
+          document.getElementById("username").innerText = obJect.login.username;
+          document.getElementById("password").innerText = obJect.login.password;
+          document.getElementById("city").innerText = obJect.location.city;
+          document.getElementById("postCode").innerText =
+            obJect.location.postcode;
+          document.getElementById("country").innerText =
+            obJect.location.country;
+        });
+
+      function reLoad() {
+        document.getElementById("link").addEventListener("click", function () {
+          location.reload();
+        });
+      }
+
+      reLoad();
+    </script>
+  </body>
+</html>
